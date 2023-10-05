@@ -3,6 +3,9 @@
 * {
   box-sizing: border-box;
 }
+#loginCSS{
+  margin-right:10px;
+}
 body {
   font-family: 'Montserrat', sans-serif;
   color: #0c0c0c;

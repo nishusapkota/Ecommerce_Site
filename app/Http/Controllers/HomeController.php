@@ -7,13 +7,16 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+public function index(){
+    return view('home.userpage');
+}
   public function redirect(Request $request){
     $usertype = Auth::user()->usertype;
         if($usertype == '1'){
             return view('admin.home');
         }
         else{
-            return view('dashboard');
+            return view('home.userpage');
         }
     // $input = $request->all();
     // $request->validate([

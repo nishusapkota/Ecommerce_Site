@@ -670,7 +670,7 @@
       </div>
     </footer>
     <!-- partial -->
-  </div>
+</div>
   <!-- main-panel ends -->
 </div>
 <!-- page-body-wrapper ends -->

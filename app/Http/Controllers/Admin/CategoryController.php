@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class AdminController extends Controller
+class CategoryController extends Controller
 {
     public function viewCategory(){
         $categories= Category::all();
@@ -28,4 +29,5 @@ class AdminController extends Controller
         $category->delete();
         return redirect()->back()->with('message','Deleted successfully');
     }
+
 }

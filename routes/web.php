@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,14 @@ Route::middleware([
 
 Route::get('/redirect',[\App\Http\Controllers\HomeController::class,'redirect']);
 // Route::get('/admin',[\App\Http\Controllers\HomeController::class,'adminDashboard']);
-Route::get('/view_category',[\App\Http\Controllers\AdminController::class,'viewCategory']);
-Route::post('/add_category',[\App\Http\Controllers\AdminController::class,'addCategory']);
-Route::delete('/delete_category/{id}',[\App\Http\Controllers\AdminController::class,'deleteCategory']);
+//Category
+Route::get('/view_category',[\App\Http\Controllers\Admin\CategoryController::class,'viewCategory']);
+Route::post('/add_category',[\App\Http\Controllers\Admin\CategoryController::class,'addCategory']);
+Route::delete('/delete_category/{id}',[\App\Http\Controllers\Admin\CategoryController::class,'deleteCategory']);
+//Product
+Route::get('/create_product',[\App\Http\Controllers\Admin\ProductController::class,'create'])->name('createProduct');
+Route::post('/store_product',[\App\Http\Controllers\Admin\ProductController::class,'store'])->name('storeProduct');
+Route::get('/show_product',[\App\Http\Controllers\Admin\ProductController::class,'index'])->name('showProduct');
+Route::get('/edit_product/{id}',[\App\Http\Controllers\Admin\ProductController::class,'edit'])->name('editProduct');
+Route::post('/update_product/{id}',[\App\Http\Controllers\Admin\ProductController::class,'update'])->name('updateProduct');
+Route::delete('/delete_product/{id}',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('deleteProduct');

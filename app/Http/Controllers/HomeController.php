@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
 public function index(){
-    return view('home.userpage');
+    $products=Product::paginate(6);
+    return view('home.userpage',compact('products'));
 }
   public function redirect(Request $request){
     $usertype = Auth::user()->usertype;
@@ -16,7 +18,8 @@ public function index(){
             return view('admin.home');
         }
         else{
-            return view('home.userpage');
+            $products=Product::paginate(6);
+            return view('home.userpage',compact('products'));
         }
     // $input = $request->all();
     // $request->validate([
@@ -39,4 +42,9 @@ public function index(){
 //  public function adminDashboard(){
 //     return view('admin.home');
 //  }
+
+public function productDetail($id){
+    $product=Product::find($id);
+    return view('home.product-detail',compact('product'));
+}
 }

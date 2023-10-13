@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,5 +47,33 @@ public function index(){
 public function productDetail($id){
     $product=Product::find($id);
     return view('home.product-detail',compact('product'));
+}
+
+public function addCart(Request $request,$id){
+    if(Auth::id()){
+        $user=Auth::user();
+        $product=Product::find($id);
+        if($product->discount_price!=" "){
+            $price = $product->price - $product->discount_price;
+        }else{
+            $price = $product->price;
+        }
+        Cart::create([
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'address' => $user->address,
+            'product_title' => $product->title,
+            'quantity' => $request->quantity,
+            'price' => $request->quantity * $price,
+            'image' => $product->image,
+            'product_id' =>$product->id,
+            'user_id' => $user->id      
+        ]);
+        return redirect()->back();
+    }
+    else{
+        return redirect('/login');
+    }
 }
 }

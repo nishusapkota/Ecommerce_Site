@@ -44,3 +44,4 @@ Route::get('/edit_product/{id}',[\App\Http\Controllers\Admin\ProductController::
 Route::post('/update_product/{id}',[\App\Http\Controllers\Admin\ProductController::class,'update'])->name('updateProduct');
 Route::delete('/delete_product/{id}',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('deleteProduct');
 Route::get('/product_detail/{id}',[\App\Http\Controllers\HomeController::class,'productDetail'])->name('productDetail');
+Route::post('/add_cart/{id}',[\App\Http\Controllers\HomeController::class,'addCart'])->name('addCart');

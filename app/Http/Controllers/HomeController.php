@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class HomeController extends Controller
 {
@@ -75,5 +77,51 @@ public function addCart(Request $request,$id){
     else{
         return redirect('/login');
     }
+}
+
+public function showCart(){
+    if(Auth::user()){
+        $id=Auth::user()->id;
+        $carts=Cart::where('user_id',$id)->get();
+        return view('home.cart',compact('carts'));
+    }else{
+        return redirect('/login');
+    }
+}
+
+public function deleteCart($id){
+    $cart =Cart::find($id);
+    $cart->delete();
+    return redirect()->back();
+}
+
+public function cashOrder(){
+    $user=Auth::user();
+    $carts=Cart::where('user_id',$user->id)->get();
+    foreach($carts as $cart){
+        Order::create([
+            'name'=>$cart->name,
+            'email'=>$cart->email,
+            'phone'=>$cart->phone,
+            'address'=>$cart->address,
+            'user_id'=>$cart->name,
+            'product_title'=>$cart->product_title,
+            'quantity'=>$cart->quantity,
+            'price'=>$cart->price,
+            'image'=>$cart->image,
+            'product_id'=>$cart->product_id,
+            'payment_status' => 'Cash On Delivery',
+            'delivery_status'=> 'Processing'
+        ]);
+        if(File::exists($cart->image)){
+            unlink(public_path($cart->image));
+        }
+        $cart->delete();
+    }
+    return redirect()->back()->with('success','We have received your order.We will connect with you soon');
+
+
+   
+    
 }
 }

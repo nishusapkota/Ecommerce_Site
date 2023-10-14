@@ -45,3 +45,6 @@ Route::post('/update_product/{id}',[\App\Http\Controllers\Admin\ProductControlle
 Route::delete('/delete_product/{id}',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('deleteProduct');
 Route::get('/product_detail/{id}',[\App\Http\Controllers\HomeController::class,'productDetail'])->name('productDetail');
 Route::post('/add_cart/{id}',[\App\Http\Controllers\HomeController::class,'addCart'])->name('addCart');
+Route::get('/show_cart',[\App\Http\Controllers\HomeController::class,'showCart'])->name('showCart');
+Route::delete('/delete_cart/{id}',[\App\Http\Controllers\HomeController::class,'deleteCart'])->name('deleteCart');
+Route::get('/cash_order',[\App\Http\Controllers\HomeController::class,'cashOrder'])->name('cashOrder');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
@@ -43,6 +44,12 @@ Route::get('/show_product',[\App\Http\Controllers\Admin\ProductController::class
 Route::get('/edit_product/{id}',[\App\Http\Controllers\Admin\ProductController::class,'edit'])->name('editProduct');
 Route::post('/update_product/{id}',[\App\Http\Controllers\Admin\ProductController::class,'update'])->name('updateProduct');
 Route::delete('/delete_product/{id}',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('deleteProduct');
+Route::get('/order',[\App\Http\Controllers\Admin\OrderController::class,'index'])->name('showOrder');
+Route::get('/delivered/{order}',[\App\Http\Controllers\Admin\OrderController::class,'delivered'])->name('delivered');
+
+
+
+
 Route::get('/product_detail/{id}',[\App\Http\Controllers\HomeController::class,'productDetail'])->name('productDetail');
 Route::post('/add_cart/{id}',[\App\Http\Controllers\HomeController::class,'addCart'])->name('addCart');
 Route::get('/show_cart',[\App\Http\Controllers\HomeController::class,'showCart'])->name('showCart');

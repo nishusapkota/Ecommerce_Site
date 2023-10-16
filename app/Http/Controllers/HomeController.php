@@ -114,9 +114,7 @@ public function cashOrder(){
             'payment_status' => 'Cash On Delivery',
             'delivery_status'=> 'Processing'
         ]);
-        if(File::exists($cart->image)){
-            unlink(public_path($cart->image));
-        }
+        
         $cart->delete();
     }
     return redirect()->back()->with('success','We have received your order.We will connect with you soon');  
@@ -209,9 +207,6 @@ foreach($carts as $cart){
         'payment_status' => 'paid',
         'delivery_status'=> 'Processing'
     ]);
-    if(File::exists($cart->image)){
-        unlink(public_path($cart->image));
-    }
     $cart->delete();
 }
 return redirect()->route('showCart')->with('success','We have received your payment for order.We will connect with you soon');  

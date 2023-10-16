@@ -44,7 +44,7 @@ class ProductController extends Controller
         //     'image'=>'required|mimetypes:jpg,png,jpeg',
         // ]);
        
-        $image_name = time().".".$request->file('image')->getClientOriginalName();
+        $image_name = time().".".$request->file('image')->getClientOriginalExtension();
         $request->image->move(public_path('product'),$image_name);
         Product::create([
             'title' => $request->title,
@@ -96,7 +96,7 @@ class ProductController extends Controller
         $product=Product::find($id);
         if($request->file('image')){
             unlink(public_path($product->image));
-            $image_name = time().".".$request->file('image')->getClientOriginalName();
+            $image_name = time().".".$request->file('image')->getClientOriginalExtension();
             $request->image->move(public_path('product'),$image_name);
             $product->image = 'product/'.$image_name;
         }

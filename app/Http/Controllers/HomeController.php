@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Session;
+use Stripe;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
@@ -118,10 +119,102 @@ public function cashOrder(){
         }
         $cart->delete();
     }
-    return redirect()->back()->with('success','We have received your order.We will connect with you soon');
+    return redirect()->back()->with('success','We have received your order.We will connect with you soon');  
+}
 
+public function stripe($total_price){
+    return view('home.stripe',compact('total_price'));
+}
 
-   
-    
+public function stripePost(Request $request,$total_price)
+
+{
+
+    Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+  
+
+    $customer = Stripe\Customer::create(array(
+
+            "address" => [
+
+                    "line1" => "Virani Chowk",
+
+                    "postal_code" => "360001",
+
+                    "city" => "Rajkot",
+
+                    "state" => "GJ",
+
+                    "country" => "IN",
+
+                ],
+
+            "email" => "demo@gmail.com",
+
+            "name" => "Hardik Savani",
+
+            "source" => $request->stripeToken
+
+         ));
+
+  
+
+    Stripe\Charge::create ([
+
+            "amount" =>$total_price * 100,
+
+            "currency" => "usd",
+
+            "customer" => $customer->id,
+
+            "description" => "Payment successfull",
+
+            "shipping" => [
+
+              "name" => "Jenny Rosen",
+
+              "address" => [
+
+                "line1" => "510 Townsend St",
+
+                "postal_code" => "98140",
+
+                "city" => "San Francisco",
+
+                "state" => "CA",
+
+                "country" => "US",
+
+              ],
+
+            ]
+
+    ]); 
+Session::flash('success', 'Payment successful!');
+$user=Auth::user();
+$carts=Cart::where('user_id',$user->id)->get();
+foreach($carts as $cart){
+    Order::create([
+        'name'=>$cart->name,
+        'email'=>$cart->email,
+        'phone'=>$cart->phone,
+        'address'=>$cart->address,
+        'user_id'=>$cart->name,
+        'product_title'=>$cart->product_title,
+        'quantity'=>$cart->quantity,
+        'price'=>$cart->price,
+        'image'=>$cart->image,
+        'product_id'=>$cart->product_id,
+        'payment_status' => 'paid',
+        'delivery_status'=> 'Processing'
+    ]);
+    if(File::exists($cart->image)){
+        unlink(public_path($cart->image));
+    }
+    $cart->delete();
+}
+return redirect()->route('showCart')->with('success','We have received your payment for order.We will connect with you soon');  
+
 }
 }

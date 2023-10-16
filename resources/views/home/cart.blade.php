@@ -92,7 +92,7 @@ table td{
             <h1>Proceed To Order</h1>
            
             <a href="{{route('cashOrder')}}" class="btn btn-danger">Cash On Delivery</a>
-            <a href="" class="btn btn-danger">Pay Using Card</a>
+            <a href="{{route('stripe',$total_price)}}" class="btn btn-danger">Pay Using Card</a>
         </div>
       </div>
      

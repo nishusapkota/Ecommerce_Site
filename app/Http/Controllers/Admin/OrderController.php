@@ -56,4 +56,14 @@ class OrderController extends Controller
 
         return redirect()->back();
     }
+
+    public function search(Request $request){
+
+        $search=$request->search;
+        
+        $orders=Order::where('name','LIKE',"%$search%")->orWhere('product_title','LIKE',"%$search%")->get();
+        // dd($orders);
+        return view('admin.search',compact('orders'));
+        
+    }
 }

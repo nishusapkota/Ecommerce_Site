@@ -40,7 +40,7 @@
                 <h2 class="font_des">Show Orders</h2>
                 <div style="width:30%; margin:auto; padding-left:10px; padding-bottom:20px;">
                     <form action="{{route('search')}}" method="GET">
-                        <input type="text" name="search" placeholder="enter search text here..">
+                        <input type="text" name="quantity" placeholder="enter search text here..">
                         <input type="submit" value="search" class="btn btn-outline-primary">
                     </form>
                 </div>
@@ -62,7 +62,7 @@
                         <th class="th_des">Send Email</th>
 
                     </tr>
-                    @foreach ($orders as $order)
+                    @forelse ($orders as $order)
                     <tr>
                         <td class="td_des">{{$order->name}}</td>
                         <td class="td_des">{{$order->email}}</td>
@@ -93,7 +93,16 @@
                         </td>
 
                     </tr>
-                    @endforeach
+
+@empty
+
+    <tr>
+       <td colspan="16" class="text-center p-3">No data found...</td>
+    </tr>
+    
+
+
+                    @endforelse
                    
                 </table>
 

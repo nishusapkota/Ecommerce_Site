@@ -49,7 +49,7 @@ Route::get('/delivered/{order}',[\App\Http\Controllers\Admin\OrderController::cl
 Route::get('/print_pdf/{order}',[\App\Http\Controllers\Admin\OrderController::class,'print']);
 Route::get('/send_email/{order}',[\App\Http\Controllers\Admin\OrderController::class,'sendEmail'])->name('send_email');
 Route::post('/send_email/{order}',[\App\Http\Controllers\Admin\OrderController::class,'send'])->name('sendEmail');
-
+Route::get('/search',[\App\Http\Controllers\Admin\OrderController::class,'search'])->name('search');
 
 Route::get('/product_detail/{id}',[\App\Http\Controllers\HomeController::class,'productDetail'])->name('productDetail');
 Route::post('/add_cart/{id}',[\App\Http\Controllers\HomeController::class,'addCart'])->name('addCart');

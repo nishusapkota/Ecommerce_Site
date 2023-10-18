@@ -46,8 +46,9 @@ Route::post('/update_product/{id}',[\App\Http\Controllers\Admin\ProductControlle
 Route::delete('/delete_product/{id}',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('deleteProduct');
 Route::get('/order',[\App\Http\Controllers\Admin\OrderController::class,'index'])->name('showOrder');
 Route::get('/delivered/{order}',[\App\Http\Controllers\Admin\OrderController::class,'delivered'])->name('delivered');
-
-
+Route::get('/print_pdf/{order}',[\App\Http\Controllers\Admin\OrderController::class,'print']);
+Route::get('/send_email/{order}',[\App\Http\Controllers\Admin\OrderController::class,'sendEmail'])->name('send_email');
+Route::post('/send_email/{order}',[\App\Http\Controllers\Admin\OrderController::class,'send'])->name('sendEmail');
 
 
 Route::get('/product_detail/{id}',[\App\Http\Controllers\HomeController::class,'productDetail'])->name('productDetail');

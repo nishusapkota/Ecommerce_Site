@@ -52,6 +52,8 @@
                         <th class="th_des">Payment Status</th>
                         <th class="th_des">Delivery Status</th>
                         <th class="th_des">Delivered</th>
+                        <th class="th_des">Print PDF</th>
+                        <th class="th_des">Send Email</th>
 
                     </tr>
                     @foreach ($orders as $order)
@@ -76,6 +78,12 @@
                             @else
                             <p>Delivered</p>
                             @endif
+                        </td>
+                        <td>
+                            <a class="btn btn-secondary" href="{{url('print_pdf',$order->id)}}">Print PDF</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-info" href="{{route('send_email',$order->id)}}">Send Email</a>
                         </td>
 
                     </tr>
